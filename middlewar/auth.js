@@ -3,13 +3,7 @@ import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
 /** 不需要登录的白名单路径 */
-const WHITE_LIST = [
-  "/auth/login",
-  "/auth/register",
-  "/public/",
-  "/health",
-  "/api/",
-];
+const WHITE_LIST = ["/auth/login", "/auth/register", "/public/"];
 
 /** 认证中间件 */
 export const authMiddleware = async (ctx, next) => {

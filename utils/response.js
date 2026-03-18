@@ -2,7 +2,7 @@ class turnClass {
   code = 0;
   message = "success";
   data = {} || null;
-  constructor(code, message, data) {
+  constructor(code, message, data = null) {
     this.code = code;
     this.message = message;
     this.data = data;

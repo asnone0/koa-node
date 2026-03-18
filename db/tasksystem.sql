@@ -1,7 +1,7 @@
 /*
  Navicat Premium Dump SQL
 
- Source Server         : localhost
+ Source Server         : asn
  Source Server Type    : MySQL
  Source Server Version : 80012 (8.0.12)
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 80012 (8.0.12)
  File Encoding         : 65001
 
- Date: 17/03/2026 18:36:21
+ Date: 18/03/2026 16:29:28
 */
 
 SET NAMES utf8mb4;
@@ -152,11 +152,14 @@ CREATE TABLE `sys_permission`  (
   `del` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_code`(`code` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_permission
 -- ----------------------------
+INSERT INTO `sys_permission` VALUES (1, '获取用户列表', 'user:list', 1, 0, '/api/user', NULL, 0, '2026-03-18 10:27:36', 0);
+INSERT INTO `sys_permission` VALUES (2, '编辑用户', 'user:update', 1, 0, '/api/update', NULL, 0, '2026-03-18 10:34:03', 0);
+INSERT INTO `sys_permission` VALUES (3, '上传文件', 'upload:file', 1, 0, '/api/upload', NULL, 0, '2026-03-18 11:43:38', 0);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -192,11 +195,14 @@ CREATE TABLE `sys_role_permission`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_role_perm`(`role_id` ASC, `permission_id` ASC) USING BTREE COMMENT '防止重复授权',
   INDEX `idx_permission_id`(`permission_id` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色权限关联表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色权限关联表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_permission
 -- ----------------------------
+INSERT INTO `sys_role_permission` VALUES (1, 1, 1, '2026-03-18 10:27:53');
+INSERT INTO `sys_role_permission` VALUES (2, 1, 2, '2026-03-18 10:37:02');
+INSERT INTO `sys_role_permission` VALUES (3, 1, 3, '2026-03-18 11:43:52');
 
 -- ----------------------------
 -- Table structure for sys_team
@@ -237,6 +243,27 @@ CREATE TABLE `sys_team_member`  (
 -- Records of sys_team_member
 -- ----------------------------
 INSERT INTO `sys_team_member` VALUES (1, 1, 1, '2026-03-09 10:04:10', 0);
+
+-- ----------------------------
+-- Table structure for sys_upload
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_upload`;
+CREATE TABLE `sys_upload`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '原文件名',
+  `file_path` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '存储路径',
+  `file_size` bigint(20) NULL DEFAULT NULL COMMENT '文件大小 (字节)',
+  `file_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '文件类型',
+  `user_id` int(11) NULL DEFAULT NULL COMMENT '上传用户 ID',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `del` tinyint(4) NULL DEFAULT 0 COMMENT '软删除',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_upload
+-- ----------------------------
+INSERT INTO `sys_upload` VALUES (1, 'HDh_3AeaAAAK46N.jpg', 'E:\\网站\\小程序服务端\\cms-server-node\\upload\\1773816666739-53948505.jpg', 1158713, 'image/jpeg', NULL, '2026-03-18 14:51:06', 0);
 
 -- ----------------------------
 -- Table structure for sys_user

@@ -1,13 +1,13 @@
 import Router from "koa-router";
 const router = new Router();
 
-// 引入全部路由
-import { userRouter, uploadRouter } from "./allRoutes.js";
-//
+import { userRouter, roleRouter, menuRouter, permissionRouter, uploadRouter } from "./allRoutes.js";
 import { loginController } from "../controller/loginController.js";
+import { registerController, getUserInfoController } from "../controller/authController.js";
 
-// 登录
 router.post("/auth/login", loginController);
+router.post("/auth/register", registerController);
+router.get("/auth/userinfo", getUserInfoController);
 
 function registerRouter(router, routes) {
   routes.forEach((item) => {
@@ -15,10 +15,10 @@ function registerRouter(router, routes) {
   });
 }
 
-// 用户管理注册
 registerRouter(router, userRouter);
-
-// 上传文件注册
+registerRouter(router, roleRouter);
+registerRouter(router, menuRouter);
+registerRouter(router, permissionRouter);
 registerRouter(router, uploadRouter);
 
 export default router;

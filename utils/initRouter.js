@@ -3,11 +3,12 @@ class routes {
   path = null;
   method = null;
   controller = null;
-
-  constructor(path, method, controller) {
+  code = null;
+  constructor(path, method, controller, code) {
     this.path = path;
     this.method = method;
     this.controller = controller;
+    this.code = code;
   }
 }
 

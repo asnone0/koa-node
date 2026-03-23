@@ -11,7 +11,6 @@ const WHITE_LIST = ["/auth/login", "/auth/register", "/public/", "/swagger-ui"];
 /** 认证中间件 */
 export const authMiddleware = async (ctx, next) => {
   const { path } = ctx;
-
   // 检查是否在白名单中
   const isWhitePath = WHITE_LIST.some((whitePath) => {
     if (whitePath.endsWith("/")) {
@@ -37,15 +36,18 @@ export const authMiddleware = async (ctx, next) => {
     // 验证 token
     const decoded = jwt.verify(token, JWT_SECRET);
     ctx.state.user = decoded;
-    // 检查权限
-    const checkCode = await permissionsCheck(ctx, decoded);
-    if (checkCode === 0) {
-      return error(ctx, "你没有该权限", -4);
+
+    // 超级管理员(roleId=1)跳过权限检查
+    if (decoded.roleId !== 1) {
+      const checkCode = await permissionsCheck(ctx, decoded);
+      if (checkCode === 0) {
+        return error(ctx, "你没有该权限", -4);
+      }
+      if (checkCode === -1) {
+        return error(ctx, "不存在该角色", -4);
+      }
     }
 
-    if (checkCode === -1) {
-      return error(ctx, "不存在该角色", -4);
-    }
     await next();
   } catch (err) {
     return error(ctx, "登录已过期，请重新登录", -4);

@@ -47,12 +47,15 @@ export async function loginModel(ctx) {
 
   // 5. 返回用户信息（不包含密码）
   const userInfo = {
-    userId: user.id,
+    id: user.id,
     username: user.username,
     email: user.email,
+    name: user.name,
+    phone: user.phone,
     avatar: user.avatar,
-    roleId: user.role_id,
-    roleName: user.role_name,
+    role_id: user.role_id,
+    role_name: user.role_name,
+    status: user.status,
   };
 
   return {

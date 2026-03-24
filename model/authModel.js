@@ -22,7 +22,7 @@ export async function registerModel(ctx) {
 
   const [existing] = await pool.query(
     "SELECT id FROM sys_user WHERE username = ? AND del = 0",
-    [username]
+    [username],
   );
 
   if (existing.length > 0) {
@@ -33,7 +33,7 @@ export async function registerModel(ctx) {
 
   const [result] = await pool.query(
     `INSERT INTO sys_user (username, password, email, name, phone, status) VALUES (?, ?, ?, ?, ?, 1)`,
-    [username, hashedPassword, email, name, phone]
+    [username, hashedPassword, email, name, phone],
   );
 
   const userId = result.insertId;
@@ -45,7 +45,7 @@ export async function registerModel(ctx) {
       roleId: null,
     },
     JWT_SECRET,
-    { expiresIn: JWT_EXPIRES_IN }
+    { expiresIn: JWT_EXPIRES_IN },
   );
 
   return {
@@ -61,15 +61,24 @@ export async function registerModel(ctx) {
 }
 
 export async function getUserInfoModel(ctx) {
-  const userId = ctx.state.user.userId;
+  // 获取 token
+  const token = ctx.headers.authorization?.replace("Bearer ", "");
 
+  if (!token) {
+    throw new Error("未登录，请先登录");
+  }
+
+  // 验证 token
+  const decoded = jwt.verify(token, JWT_SECRET);
+  ctx.state.user = decoded;
+  const userId = ctx.state.user.userId;
   const [users] = await pool.query(
     `SELECT u.id, u.username, u.email, u.name, u.phone, u.avatar, u.role_id, u.status, u.create_time,
             r.name as role_name, r.code as role_code
      FROM sys_user u
      LEFT JOIN sys_role r ON u.role_id = r.id
      WHERE u.id = ? AND u.del = 0`,
-    [userId]
+    [userId],
   );
 
   if (users.length === 0) {
@@ -85,10 +94,10 @@ export async function getUserInfoModel(ctx) {
       `SELECT id, name, code, type, parent_id, path, component, icon, sort
        FROM sys_permission
        WHERE del = 0 AND status = 1 AND type = 1
-       ORDER BY sort ASC`
+       ORDER BY sort ASC`,
     );
     [permissions] = await pool.query(
-      `SELECT code FROM sys_permission WHERE del = 0 AND status = 1`
+      `SELECT code FROM sys_permission WHERE del = 0 AND status = 1`,
     );
   } else {
     [menus] = await pool.query(
@@ -97,14 +106,14 @@ export async function getUserInfoModel(ctx) {
        JOIN sys_permission p ON rp.permission_id = p.id
        WHERE rp.role_id = ? AND p.del = 0 AND p.status = 1 AND p.type = 1
        ORDER BY p.sort ASC`,
-      [user.role_id]
+      [user.role_id],
     );
     [permissions] = await pool.query(
       `SELECT p.code
        FROM sys_role_permission rp
        JOIN sys_permission p ON rp.permission_id = p.id
        WHERE rp.role_id = ? AND p.del = 0 AND p.status = 1`,
-      [user.role_id]
+      [user.role_id],
     );
   }
 
@@ -125,7 +134,7 @@ export async function getUserInfoModel(ctx) {
       create_time: user.create_time,
     },
     menus: menuTree,
-    permissions: permissions.map(p => p.code),
+    permissions: permissions.map((p) => p.code),
   };
 }
 
@@ -133,11 +142,11 @@ function buildMenuTree(menus) {
   const map = {};
   const roots = [];
 
-  menus.forEach(item => {
+  menus.forEach((item) => {
     map[item.id] = { ...item, children: [] };
   });
 
-  menus.forEach(item => {
+  menus.forEach((item) => {
     if (item.parent_id && map[item.parent_id]) {
       map[item.parent_id].children.push(map[item.id]);
     } else if (item.parent_id === 0 || item.parent_id === null) {

@@ -6,7 +6,13 @@ import { permissionsCheck } from "../utils/permissionsCheck.js";
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
 /** 不需要登录的白名单路径 */
-const WHITE_LIST = ["/auth/login", "/auth/register", "/public/", "/swagger-ui"];
+const WHITE_LIST = [
+  "/auth/login",
+  "/auth/register",
+  "/public/",
+  "/swagger-ui",
+  "/auth/userinfo",
+];
 
 /** 认证中间件 */
 export const authMiddleware = async (ctx, next) => {

@@ -22,7 +22,5 @@ export function receiveValueGet(ctx) {
   const data = {
     ...ctx.query,
   };
-  return {
-    data,
-  };
+  return data;
 }

@@ -70,8 +70,7 @@ export async function getUserInfoModel(ctx) {
 
   // 验证 token
   const decoded = jwt.verify(token, JWT_SECRET);
-  ctx.state.user = decoded;
-  const userId = ctx.state.user.userId;
+  const userId = decoded?.userId || 1;
   const [users] = await pool.query(
     `SELECT u.id, u.username, u.email, u.name, u.phone, u.avatar, u.role_id, u.status, u.create_time,
             r.name as role_name, r.code as role_code
@@ -108,6 +107,7 @@ export async function getUserInfoModel(ctx) {
        ORDER BY p.sort ASC`,
       [user.role_id],
     );
+    console.log(menus, "###########");
     [permissions] = await pool.query(
       `SELECT p.code
        FROM sys_role_permission rp

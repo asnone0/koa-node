@@ -1,10 +1,44 @@
 import routes from "../utils/initRouter.js";
 
-import { getUserController, getUserByIdController, createUserController, updateUserController, deleteUserController, resetPasswordController, updatePasswordController } from "../controller/userController.js";
-import { getRoleController, getAllRolesController, getRoleByIdController, createRoleController, updateRoleController, deleteRoleController } from "../controller/roleController.js";
-import { getMenuController, getMenuTreeController, getMenuByIdController, createMenuController, updateMenuController, deleteMenuController } from "../controller/menuController.js";
-import { getPermissionController, getAllPermissionsController, getPermissionByIdController, createPermissionController, updatePermissionController, deletePermissionController } from "../controller/permissionController.js";
-import { uploadFile, uploadFiles, getFiles } from "../controller/uploadController.js";
+import {
+  getUserController,
+  getUserByIdController,
+  createUserController,
+  updateUserController,
+  deleteUserController,
+  resetPasswordController,
+  updatePasswordController,
+} from "../controller/userController.js";
+import {
+  getRoleController,
+  getAllRolesController,
+  getRoleByIdController,
+  createRoleController,
+  updateRoleController,
+  deleteRoleController,
+} from "../controller/roleController.js";
+import {
+  getMenuController,
+  getMenuTreeController,
+  getMenuByIdController,
+  createMenuController,
+  updateMenuController,
+  deleteMenuController,
+  getMenuAllController,
+} from "../controller/menuController.js";
+import {
+  getPermissionController,
+  getAllPermissionsController,
+  getPermissionByIdController,
+  createPermissionController,
+  updatePermissionController,
+  deletePermissionController,
+} from "../controller/permissionController.js";
+import {
+  uploadFile,
+  uploadFiles,
+  getFiles,
+} from "../controller/uploadController.js";
 
 export const userRouter = [
   new routes("/api/user", "get", getUserController),
@@ -32,6 +66,7 @@ export const menuRouter = [
   new routes("/api/menu", "post", createMenuController),
   new routes("/api/menu/:id", "put", updateMenuController),
   new routes("/api/menu/:id", "delete", deleteMenuController),
+  new routes("/api/menuAll", "get", getMenuAllController),
 ];
 
 export const permissionRouter = [

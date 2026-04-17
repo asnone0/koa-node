@@ -69,7 +69,14 @@ export async function getRoleById(id) {
      WHERE rp.role_id = ? AND p.del = 0`,
     [id],
   );
+  const [menus] = await pool.query(
+    `SELECT p.* FROM sys_role_permission rp 
+     JOIN sys_permission p ON rp.permission_id = p.id 
+     WHERE rp.role_id = ? AND p.del = 0`,
+    [id],
+  );
   role.permissions = permissions;
+  role.menus = menus;
 
   return role;
 }
@@ -115,7 +122,7 @@ export async function createRole(roleData) {
 
 export async function updateRole(id, roleData) {
   const { name, code, status, sort, description, permissions } = roleData;
-
+  console.log(permissions);
   const [existing] = await pool.query(
     "SELECT id FROM sys_role WHERE id = ? AND del = 0",
     [id],

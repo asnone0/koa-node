@@ -22,8 +22,6 @@ export async function loginModel(ctx) {
     [username],
   );
 
-  console.log(users);
-
   if (users.length === 0) {
     throw new error("用户不存在", 400, 1002);
   }

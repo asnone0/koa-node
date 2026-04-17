@@ -13,12 +13,22 @@ export async function getMenuTreeController(ctx) {
 }
 
 export async function getMenuByIdController(ctx) {
+  console.log(ctx.params);
   const { id } = ctx.params;
   const menu = await menuModel.getMenuById(id);
   if (!menu) {
     return error(ctx, "菜单不存在", -1);
   }
   return success(ctx, menu);
+}
+
+export async function getMenuAllController(ctx) {
+  try {
+    const data = await menuModel.getMenuAll();
+    return success(ctx, data);
+  } catch (err) {
+    return error(ctx, err.message, -1);
+  }
 }
 
 export async function createMenuController(ctx) {

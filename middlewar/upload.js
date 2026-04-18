@@ -47,4 +47,12 @@ const upload = multer({
   },
 });
 
-export { upload, uploadDir };
+const upLoadOss = multer({
+  storage: multer.memoryStorage(),
+  fileFilter,
+  limits: {
+    fileSize: 10 * 1024 * 1024, // 10MB
+  },
+});
+
+export { upload, uploadDir, upLoadOss };

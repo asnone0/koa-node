@@ -5,21 +5,25 @@ import pool from "../utils/db.js";
  */
 export async function uploadModal(fileInfo) {
   const sql = `INSERT INTO sys_upload (
+    id,
     file_name,
     file_path,
     file_size,
     file_type,
     create_time
-  ) VALUES (?, ?, ?, ?, NOW())`;
+  ) VALUES (?,?, ?, ?, ?, NOW())`;
 
-  const [result] = await pool.query(sql, [
+  if (!fileInfo.id) return { error: "缺少文件ID" };
+
+  await pool.query(sql, [
+    fileInfo.id,
     fileInfo.originalname,
     fileInfo.path,
     fileInfo.size,
     fileInfo.mimetype,
   ]);
 
-  return result;
+  return fileInfo;
 }
 
 /**

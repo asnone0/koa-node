@@ -11,7 +11,7 @@
  Target Server Version : 80012 (8.0.12)
  File Encoding         : 65001
 
- Date: 17/04/2026 15:33:57
+ Date: 18/04/2026 12:02:12
 */
 
 SET NAMES utf8mb4;
@@ -60,8 +60,8 @@ CREATE TABLE `sys_permission`  (
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `del` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除: 0-正常, 1-删除',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `uk_code`(`code` ASC) USING BTREE,
-  INDEX `idx_parent_id`(`parent_id` ASC) USING BTREE
+  INDEX `idx_parent_id`(`parent_id` ASC) USING BTREE,
+  INDEX `uk_code`(`code` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 78 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '权限表(菜单+按钮+接口)' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -138,96 +138,85 @@ CREATE TABLE `sys_role_permission`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_role_perm`(`role_id` ASC, `permission_id` ASC) USING BTREE COMMENT '防止重复授权',
   INDEX `idx_permission_id`(`permission_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 617 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色权限关联表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1789 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色权限关联表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_permission
 -- ----------------------------
-INSERT INTO `sys_role_permission` VALUES (539, 1, 1, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (540, 1, 2, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (541, 1, 3, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (542, 1, 4, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (543, 1, 5, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (544, 1, 10, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (545, 1, 11, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (546, 1, 12, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (547, 1, 13, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (548, 1, 14, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (549, 1, 20, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (550, 1, 21, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (551, 1, 22, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (552, 1, 23, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (553, 1, 24, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (554, 1, 30, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (555, 1, 31, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (556, 1, 32, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (557, 1, 33, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (558, 1, 40, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (559, 1, 41, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (560, 1, 42, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (561, 1, 43, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (562, 1, 45, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (563, 1, 46, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (564, 1, 47, '2026-04-17 15:19:42');
-INSERT INTO `sys_role_permission` VALUES (565, 3, 45, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (566, 3, 47, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (567, 3, 1, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (568, 3, 2, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (569, 3, 3, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (570, 3, 4, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (571, 3, 5, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (572, 3, 10, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (573, 3, 11, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (574, 3, 12, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (575, 3, 13, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (576, 3, 14, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (577, 3, 20, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (578, 3, 21, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (579, 3, 22, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (580, 3, 23, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (581, 3, 24, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (582, 3, 46, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (583, 3, 30, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (584, 3, 31, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (585, 3, 32, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (586, 3, 33, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (587, 3, 40, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (588, 3, 41, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (589, 3, 42, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (590, 3, 43, '2026-04-17 15:19:50');
-INSERT INTO `sys_role_permission` VALUES (591, 2, 10, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (592, 2, 45, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (593, 2, 47, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (594, 2, 1, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (595, 2, 2, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (596, 2, 3, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (597, 2, 4, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (598, 2, 5, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (599, 2, 11, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (600, 2, 12, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (601, 2, 13, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (602, 2, 14, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (603, 2, 20, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (604, 2, 21, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (605, 2, 22, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (606, 2, 23, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (607, 2, 24, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (608, 2, 46, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (609, 2, 30, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (610, 2, 31, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (611, 2, 32, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (612, 2, 33, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (613, 2, 40, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (614, 2, 41, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (615, 2, 42, '2026-04-17 15:23:31');
-INSERT INTO `sys_role_permission` VALUES (616, 2, 43, '2026-04-17 15:23:31');
+INSERT INTO `sys_role_permission` VALUES (1267, 3, 1, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1268, 3, 2, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1269, 3, 3, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1270, 3, 4, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1271, 3, 5, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1272, 3, 10, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1273, 3, 11, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1274, 3, 12, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1275, 3, 13, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1276, 3, 14, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1277, 3, 20, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1278, 3, 21, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1279, 3, 22, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1280, 3, 23, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1281, 3, 24, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1282, 3, 30, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1283, 3, 31, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1284, 3, 32, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1285, 3, 33, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1286, 3, 40, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1287, 3, 41, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1288, 3, 42, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1289, 3, 43, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1290, 3, 45, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1291, 3, 46, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1292, 3, 47, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1293, 3, 72, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1294, 3, 73, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1295, 3, 74, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1296, 3, 75, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1297, 3, 76, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1298, 3, 77, '2026-04-17 16:54:44');
+INSERT INTO `sys_role_permission` VALUES (1720, 1, 72, '2026-04-18 10:24:51');
+INSERT INTO `sys_role_permission` VALUES (1721, 1, 74, '2026-04-18 10:24:51');
+INSERT INTO `sys_role_permission` VALUES (1722, 1, 75, '2026-04-18 10:24:51');
+INSERT INTO `sys_role_permission` VALUES (1723, 1, 76, '2026-04-18 10:24:51');
+INSERT INTO `sys_role_permission` VALUES (1724, 1, 73, '2026-04-18 10:24:51');
+INSERT INTO `sys_role_permission` VALUES (1759, 2, 1, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1760, 2, 2, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1761, 2, 3, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1762, 2, 4, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1763, 2, 5, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1764, 2, 10, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1765, 2, 11, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1766, 2, 12, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1767, 2, 13, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1768, 2, 14, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1769, 2, 20, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1770, 2, 21, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1771, 2, 22, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1772, 2, 23, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1773, 2, 24, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1774, 2, 30, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1775, 2, 31, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1776, 2, 32, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1777, 2, 33, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1778, 2, 40, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1779, 2, 41, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1780, 2, 42, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1781, 2, 43, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1782, 2, 45, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1783, 2, 46, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1784, 2, 47, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1785, 2, 72, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1786, 2, 73, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1787, 2, 74, '2026-04-18 10:25:08');
+INSERT INTO `sys_role_permission` VALUES (1788, 2, 75, '2026-04-18 10:25:08');
 
 -- ----------------------------
 -- Table structure for sys_upload
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_upload`;
 CREATE TABLE `sys_upload`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '主键ID',
   `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '原文件名',
   `file_path` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '存储路径',
   `file_size` bigint(20) NULL DEFAULT NULL COMMENT '文件大小 (字节)',
@@ -241,6 +230,17 @@ CREATE TABLE `sys_upload`  (
 -- ----------------------------
 -- Records of sys_upload
 -- ----------------------------
+INSERT INTO `sys_upload` VALUES ('ec4848c7-e94e-449e-8fe6-cf1b4701408a', '�6�s.png', 'E:\\网站\\小程序服务端\\koa-node\\upload\\1776484624623-57616717.png', 3228083, 'image/png', NULL, '2026-04-18 11:57:04', 0);
+INSERT INTO `sys_upload` VALUES ('a4a45f65-2185-4297-975e-a4a2a88ea310', '�6�s.png', 'E:\\网站\\小程序服务端\\koa-node\\upload\\1776484584908-429384516.png', 3228083, 'image/png', NULL, '2026-04-18 11:56:24', 0);
+INSERT INTO `sys_upload` VALUES ('4fa0174f-f727-4787-a5e1-82798bb9b89d', '�6�s.png', 'E:\\网站\\小程序服务端\\koa-node\\upload\\1776484523427-422699332.png', 3228083, 'image/png', NULL, '2026-04-18 11:55:23', 0);
+INSERT INTO `sys_upload` VALUES ('3c1ce492-2d1c-487b-a9b7-065b2fd9100d', '�6�s.png', 'E:\\网站\\小程序服务端\\koa-node\\upload\\1776484634526-981488542.png', 3228083, 'image/png', NULL, '2026-04-18 11:57:14', 0);
+INSERT INTO `sys_upload` VALUES ('df1c9ec9-6b1f-46ed-9e8e-b1b3139f634b', '�6�s.png', 'E:\\网站\\小程序服务端\\koa-node\\upload\\1776484636661-173403801.png', 3228083, 'image/png', NULL, '2026-04-18 11:57:16', 0);
+INSERT INTO `sys_upload` VALUES ('9d8e5fe8-edc1-4c05-9f30-61e2058651b5', '�6�s.png', 'E:\\网站\\小程序服务端\\koa-node\\upload\\1776484650403-627755407.png', 3228083, 'image/png', NULL, '2026-04-18 11:57:30', 0);
+INSERT INTO `sys_upload` VALUES ('cbdd502b-df0a-4b4d-b73a-f93e7c778ec7', '�6�s.png', 'E:\\网站\\小程序服务端\\koa-node\\upload\\1776484668284-847213223.png', 3228083, 'image/png', NULL, '2026-04-18 11:57:48', 0);
+INSERT INTO `sys_upload` VALUES ('a3e42432-eb37-401d-99bf-24d8009b49dc', '�6�s.png', 'E:\\网站\\小程序服务端\\koa-node\\upload\\1776484670810-501208508.png', 3228083, 'image/png', NULL, '2026-04-18 11:57:50', 0);
+INSERT INTO `sys_upload` VALUES ('c49d7a5e-436f-4cd4-a640-2156127e7419', '�6�s.png', 'E:\\网站\\小程序服务端\\koa-node\\upload\\1776484691828-529477731.png', 3228083, 'image/png', NULL, '2026-04-18 11:58:11', 0);
+INSERT INTO `sys_upload` VALUES ('0f9c2f3f-08bf-4ea3-8912-40651ff39671', '�6�s.png', 'E:\\网站\\小程序服务端\\koa-node\\upload\\1776484711056-553884109.png', 3228083, 'image/png', NULL, '2026-04-18 11:58:31', 0);
+INSERT INTO `sys_upload` VALUES ('f06a22c0-07c2-4b9a-bb70-e6c69126fb0f', '�6�s.png', 'E:\\网站\\小程序服务端\\koa-node\\upload\\1776484860272-127836230.png', 3228083, 'image/png', NULL, '2026-04-18 12:01:00', 0);
 
 -- ----------------------------
 -- Table structure for sys_user

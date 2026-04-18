@@ -2,6 +2,7 @@ import { success } from "../utils/response.js";
 import { uploadModal, getUploadList } from "../model/uploadModel.js";
 import { upload } from "../middlewar/upload.js";
 import { uploadToOSS } from "../utils/oss.js";
+import { v4 as uuidv4 } from "uuid";
 
 export async function uploadFile(ctx) {
   await upload.single("file")(ctx, async () => {
@@ -9,31 +10,18 @@ export async function uploadFile(ctx) {
     if (!ctx.req.file) {
       throw "请选择要上传的文件";
     }
-
-    const ossResult = await uploadToOSS({
+    console.log(Buffer.from(file.originalname));
+    const data = await uploadModal({
+      id: uuidv4(),
       originalname: file.originalname,
-      buffer: file.buffer,
+      path: file.path,
       size: file.size,
       mimetype: file.mimetype,
     });
 
-    await uploadModal({
-      originalname: file.originalname,
-      path: ossResult.filePath,
-      size: file.size,
-      mimetype: file.mimetype,
-    });
+    console.log(data);
 
-    return success(
-      ctx,
-      {
-        fileName: ossResult.fileName,
-        filePath: ossResult.filePath,
-        fileSize: ossResult.fileSize,
-        fileType: ossResult.fileType,
-      },
-      "上传成功",
-    );
+    return success(ctx, data, "上传成功");
   });
 }
 

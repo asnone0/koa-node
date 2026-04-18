@@ -107,6 +107,7 @@ export async function getUserInfoModel(ctx) {
        ORDER BY p.sort ASC`,
       [user.role_id],
     );
+    console.log(menus);
     [permissions] = await pool.query(
       `SELECT p.code
        FROM sys_role_permission rp
